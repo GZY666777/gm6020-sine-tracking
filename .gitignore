@@ -1,0 +1,41 @@
+# Keil build outputs
+MDK-ARM/GM6020_Sine/
+MDK-ARM/*.uvguix.*
+MDK-ARM/*.uvoptx
+MDK-ARM/*.scvd
+MDK-ARM/JLinkLog.txt
+MDK-ARM/*.dep
+MDK-ARM/*.lnp
+MDK-ARM/*.sct
+MDK-ARM/*.map
+MDK-ARM/*.lst
+MDK-ARM/*.crf
+MDK-ARM/*.o
+MDK-ARM/*.d
+MDK-ARM/*.axf
+MDK-ARM/*.hex
+MDK-ARM/*.bin
+
+# Common build artifacts
+*.hex
+*.bin
+*.axf
+*.map
+*.lst
+*.o
+*.d
+*.crf
+*.iex
+*.htm
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Captured data / figures
+run_*.csv
+run_*.png
+tools/run_*.csv
+tools/run_*.png
