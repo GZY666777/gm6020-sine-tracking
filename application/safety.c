@@ -8,7 +8,6 @@
 #include "bsp_can.h"
 
 #include <math.h>
-#include <string.h>
 
 static volatile uint32_t s_faults = 0u;
 static uint32_t s_tx_fail_streak = 0u;
@@ -135,8 +134,10 @@ uint8_t Safety_TryClear(uint32_t now_ms, const gm6020_feedback_t *fb,
         return 0u;
     }
 
-    /* Rotor must be back inside the safe window. */
-    if (fabsf(pos_rel_deg) > SAFETY_POS_CLEAR_DEG)
+    /* Rotor must be back inside the safe window (only relevant when the
+     * position limit was the fault). */
+    if ((s_faults & SAFETY_FAULT_POS_LIMIT) != 0u &&
+        fabsf(pos_rel_deg) > SAFETY_POS_CLEAR_DEG)
     {
         return 0u;
     }

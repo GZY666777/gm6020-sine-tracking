@@ -82,6 +82,8 @@
 
 > 如果 Keil 报 `Cannot access target`：检查 SWDIO/SWCLK/GND、板子是否上电、J-Link 是否被其他软件占用；把 Max Clock 降到 1 MHz 再试。
 
+> 本工程已经包含 CubeMX 生成的外设初始化代码。**不要再用 CubeMX 重新生成**，否则可能覆盖 `Src/main.c` 和工程配置。需要改外设时，先备份工程，或只修改 `USER CODE` 区域内的代码。
+
 ### 2.2 电机 ID
 
 GM6020 出厂默认 **ID = 1**。如果之前改过 ID：
