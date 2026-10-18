@@ -65,6 +65,9 @@
 - STM32F4xx DFP `2.13.0` 或更新
 - SEGGER J-Link 驱动
 - 工程文件：[`MDK-ARM/GM6020_Sine.uvprojx`](MDK-ARM/GM6020_Sine.uvprojx)
+- 可选：CMake + `arm-none-eabi-gcc`，见 [`docs/build-gcc.md`](docs/build-gcc.md)
+
+> 当前验证状态：**完整 GCC 编译 + 链接已通过**，FLASH 52,692 B（5.03%）、RAM 4,936 B（3.77%）；硬件实测和参数整定待装置到位后进行。
 
 ### 2.1 打开、编译、下载
 
@@ -92,6 +95,19 @@ GM6020 出厂默认 **ID = 1**。如果之前改过 ID：
 - 修改 [`application/app_config.h`](application/app_config.h) 里的 `GM6020_ID`。
 
 驱动按 ID 自动选择控制帧：ID 1–4 用 `0x1FF`，ID 5–7 用 `0x2FF`；反馈帧为 `0x204 + ID`。
+
+### 2.3 没有 Keil 时的备用构建
+
+```powershell
+cmake -S . -B C:/temp/gm6020-build -G Ninja `
+  -DCMAKE_TOOLCHAIN_FILE=cmake/arm-none-eabi.cmake `
+  -DARM_TOOLCHAIN_PATH="D:/path/to/arm-none-eabi/bin" `
+  -DCMAKE_BUILD_TYPE=Release
+
+cmake --build C:/temp/gm6020-build -j 8
+```
+
+会生成 `.elf/.bin/.hex`。详细说明和 J-Link 命令行下载见 [`docs/build-gcc.md`](docs/build-gcc.md)。
 
 ---
 
@@ -310,8 +326,12 @@ gm6020-sine-tracking/
 ├─ Inc/
 ├─ Drivers/                    # ST HAL + CMSIS
 ├─ MDK-ARM/GM6020_Sine.uvprojx # Keil 工程
+├─ CMakeLists.txt              # 可选 GCC 构建
+├─ cmake/                      # GCC 启动文件 + 链接脚本
+├─ .github/workflows/build.yml # GitHub Actions 自动编译
 ├─ docs/
 │  ├─ wiring.md
+│  ├─ build-gcc.md
 │  └─ report_template.md
 ├─ tools/
 │  ├─ plot_serial.py

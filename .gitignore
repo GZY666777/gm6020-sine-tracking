@@ -16,6 +16,17 @@ MDK-ARM/*.axf
 MDK-ARM/*.hex
 MDK-ARM/*.bin
 
+# CMake / GCC build outputs
+build/
+build-*/
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+*.ninja
+.ninja_*
+compile_commands.json
+
+
 # Common build artifacts
 *.hex
 *.bin
